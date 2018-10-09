@@ -21,8 +21,8 @@ public class TestForm1 extends JFrame
 
         Container container = this.getContentPane();
         container.setLayout(new GridLayout(7, 1, 2, 2));
-       
-        lablePicture.setIcon(new ImageIcon("E:\\Java\\TestingApp\\src\\pictures\\pic1.jpg"));
+
+        lablePicture.setIcon(new ImageIcon("pictures/pic1.jpg"));
         container.add(lablePicture);
         container.add(lableQuestion);
 
