@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class TestForm extends JFrame
 {
@@ -15,8 +14,8 @@ public class TestForm extends JFrame
     public TestForm()
     {
         super("Тестирование");
-        //this.setBounds(200, 200, 700, 700);
-        this.setSize(700,700);
+
+        this.setSize(700, 700);
         this.setContentPane(panel1);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,7 +27,20 @@ public class TestForm extends JFrame
         group.add(radioButtonAnswer3);
         group.add(radioButtonAnswer4);
 
-        buttonNext.addActionListener(e -> lablePicture.setIcon(new ImageIcon("pictures/pic2.jpg")));
+
+    }
+
+    public void setValuesForField(String id, String question, String answer1, String answer2, String answer3, String answer4right)
+    {
+        buttonNext.addActionListener(e ->
+        {
+            lablePicture.setIcon(new ImageIcon("pictures/pic2.jpg"));
+            lableQuestion.setText(id + ". " + question);
+            radioButtonAnswer1.setText(answer1);
+            radioButtonAnswer2.setText(answer2);
+            radioButtonAnswer3.setText(answer3);
+            radioButtonAnswer4.setText(answer4right);
+        });
     }
 
 }
