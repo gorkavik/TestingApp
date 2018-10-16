@@ -1,3 +1,4 @@
+import jdk.nashorn.internal.runtime.logging.DebugLogger;
 import org.sqlite.JDBC;
 
 import javax.swing.*;
@@ -101,6 +102,7 @@ public class TestForm extends JFrame
                             "Гребаные вопросы закончились",
                             "Зэ энд",
                             JOptionPane.PLAIN_MESSAGE);
+
                 }
             }
         });

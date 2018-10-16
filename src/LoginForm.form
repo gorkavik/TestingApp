@@ -19,6 +19,8 @@
         </constraints>
         <properties>
           <font name="Arial" size="14"/>
+          <selectedTextColor color="-6776680"/>
+          <toolTipText value="Введите логин"/>
         </properties>
       </component>
       <component id="b53a6" class="javax.swing.JPasswordField" binding="passwordField">
@@ -31,7 +33,9 @@
           <echoChar value="*"/>
           <focusable value="true"/>
           <font name="Arial" size="14"/>
+          <selectedTextColor color="-6776680"/>
           <text value=""/>
+          <toolTipText value="Введите пароль"/>
         </properties>
       </component>
       <component id="932a3" class="javax.swing.JLabel" binding="lableTitle">
