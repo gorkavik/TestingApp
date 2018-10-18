@@ -2,6 +2,7 @@ import jdk.nashorn.internal.runtime.logging.DebugLogger;
 import org.sqlite.JDBC;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -73,7 +74,7 @@ public class TestForm extends JFrame
             {
                 if (i <= rowCount)
                 {
-                   try
+                    try
                     {
                         resultSet = statement.executeQuery("SELECT id, question, answer1, answer2, answer3, answer4right " +
                                 "FROM basequestion WHERE id=" + i);

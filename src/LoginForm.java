@@ -1,6 +1,7 @@
 import org.sqlite.JDBC;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -19,6 +20,8 @@ public class LoginForm extends JFrame
     private JLabel lableLogin;
     private JLabel lablePass;
     private JLabel lableTitle;
+    private JButton buttonRegist;
+
     public String login;
     public String pass;
     public String loginequals;
@@ -30,7 +33,7 @@ public class LoginForm extends JFrame
         //инициализация формы
         super("Авторизация");
 
-        this.setSize(300, 200);
+        this.setSize(500, 200);
         this.setContentPane(panelLogin);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,6 +43,7 @@ public class LoginForm extends JFrame
 //создание взаимодействия с базой
         Statement statement = connection.createStatement();
 
+//действие для кнопки Вход
         buttonEnter.addActionListener(new ActionListener()
         {
             @Override
@@ -50,23 +54,22 @@ public class LoginForm extends JFrame
 
                 try
                 {
-                    resultSet = statement.executeQuery("SELECT * FROM baselogin WHERE userlogin LIKE '"+login+"'");
-                    passequals=resultSet.getString("password");
-                    loginequals=resultSet.getString("userlogin");
+                    resultSet = statement.executeQuery("SELECT * FROM baselogin WHERE userlogin LIKE '" + login + "'");
+                    passequals = resultSet.getString("password");
+                    loginequals = resultSet.getString("userlogin");
                 } catch (SQLException e1)
                 {
                     e1.printStackTrace();
                 }
- lableLogin.setText(loginequals);
-lablePass.setText(passequals);
+
                 if (Objects.equals(pass, passequals))
                 {
                     setVisible(false);
-                    TestForm app = null;
+                    TestForm testForm = null;
                     try
                     {
-                        app = new TestForm();
-                        app.setVisible(true);
+                        testForm = new TestForm();
+                        testForm.setVisible(true);
                     } catch (SQLException e1)
                     {
                         e1.printStackTrace();
@@ -81,5 +84,26 @@ lablePass.setText(passequals);
                 }
             }
         });
+
+// действие для кнопки Регистрация
+        buttonRegist.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                setVisible(false);
+                RegistForm registForm = null;
+                try
+                {
+                    registForm = new RegistForm();
+                    registForm.setVisible(true);
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
+
+            }
+        });
     }
+
 }

@@ -11,8 +11,8 @@ public class MainClass
         //запуск формы с вопросами
 //        TestForm app = new TestForm();
 //        app.setVisible(true);
-        LoginForm login = new LoginForm();
-        login.setVisible(true);
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
 
     }
 
