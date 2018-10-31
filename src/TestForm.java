@@ -36,7 +36,7 @@ public class TestForm extends JFrame
 
         this.setSize(700, 700);
         this.setContentPane(panelTest);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation();
 
         lablePicture.setIcon(new ImageIcon("pictures/pic1.jpg"));
 //группа взаимосвязанных обьектов
@@ -107,6 +107,14 @@ public class TestForm extends JFrame
                 }
             }
         });
+    }
+
+    private void setDefaultCloseOperation() throws SQLException
+    {
+        this.setVisible(false);
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+
     }
 
 

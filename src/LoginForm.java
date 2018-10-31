@@ -1,14 +1,9 @@
 import org.sqlite.JDBC;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 public class LoginForm extends JFrame
@@ -26,6 +21,7 @@ public class LoginForm extends JFrame
     public String pass;
     public String loginequals;
     public String passequals;
+    public String statusequals;
     public ResultSet resultSet;
 
     public LoginForm() throws SQLException
@@ -54,25 +50,26 @@ public class LoginForm extends JFrame
 
                 try
                 {
-                    resultSet = statement.executeQuery("SELECT * FROM baselogin WHERE userlogin LIKE '" + login + "'");
-                    passequals = resultSet.getString("password");
-                    loginequals = resultSet.getString("userlogin");
+                    resultSet = statement.executeQuery("SELECT * FROM baselogin WHERE Userlogin LIKE '" + login + "'");
+                    passequals = resultSet.getString("Password");
+                    loginequals = resultSet.getString("Userlogin");
+                    statusequals = resultSet.getString("Status");
+
                 } catch (SQLException e1)
                 {
                     e1.printStackTrace();
                 }
-
+//сравнение введенного значения с табличным
                 if (Objects.equals(pass, passequals))
                 {
+
                     setVisible(false);
-                    TestForm testForm = null;
-                    try
+                    SwitchForm switchForm = new SwitchForm();
+                    switchForm.setVisible(true);
+//дополнительная проверка на статус
+                    if (Objects.equals("user", statusequals))
                     {
-                        testForm = new TestForm();
-                        testForm.setVisible(true);
-                    } catch (SQLException e1)
-                    {
-                        e1.printStackTrace();
+                        switchForm.setVisibleElements(statusequals);
                     }
 
                 } else

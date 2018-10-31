@@ -8,9 +8,7 @@ public class MainClass
     public static void main(String[] args) throws SQLException
     {
 
-        //запуск формы с вопросами
-//        TestForm app = new TestForm();
-//        app.setVisible(true);
+        //запуск формы с авторизацией
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
 
