@@ -54,6 +54,7 @@ public class SwitchForm extends JFrame
                 }
             }
         });
+
     }
 
     public void setVisibleElements(String status)

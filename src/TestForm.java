@@ -1,8 +1,6 @@
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
 import org.sqlite.JDBC;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -28,6 +26,7 @@ public class TestForm extends JFrame
 
     public ResultSet resultSet;
     public int i = 1;
+    public int id1=3;
 
     public TestForm() throws SQLException
     {
@@ -53,8 +52,8 @@ public class TestForm extends JFrame
         Statement statement = connection.createStatement();
 
 //получение выборки
-        resultSet = statement.executeQuery("SELECT id, question, answer1, answer2, answer3, answer4right " +
-                "FROM basequestion");
+        resultSet = statement.executeQuery("SELECT Question, Answer1, Answer2, Answer3, Answer4right " +
+                "FROM basequestion WHERE Test=2");
 
 //получение количества строк
 
@@ -72,31 +71,34 @@ public class TestForm extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+
                 if (i <= rowCount)
                 {
-                    try
-                    {
-                        resultSet = statement.executeQuery("SELECT id, question, answer1, answer2, answer3, answer4right " +
-                                "FROM basequestion WHERE id=" + i);
-                        id = resultSet.getString("id");
-                        question = resultSet.getString("question");
-                        answer1 = resultSet.getString("answer1");
-                        answer2 = resultSet.getString("answer2");
-                        answer3 = resultSet.getString("answer3");
-                        answer4right = resultSet.getString("answer4right");
-                    } catch (SQLException e1)
-                    {
-                        e1.printStackTrace();
-                    }
+                try
+                {
+                    resultSet = statement.executeQuery("SELECT ID, Question, Answer1, Answer2, Answer3, Answer4right " +
+                            "FROM basequestion WHERE (Test=2 AND ID="+id1+")");
+                    id = resultSet.getString("ID");
+                    question = resultSet.getString("Question");
+                    answer1 = resultSet.getString("Answer1");
+                    answer2 = resultSet.getString("Answer2");
+                    answer3 = resultSet.getString("Answer3");
+                    answer4right = resultSet.getString("Answer4right");
+
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
 
 
-                    lablePicture.setIcon(new ImageIcon("pictures/pic2.jpg"));
-                    lableQuestion.setText(id + ". " + question);
-                    radioButtonAnswer1.setText(answer1);
-                    radioButtonAnswer2.setText(answer2);
-                    radioButtonAnswer3.setText(answer3);
-                    radioButtonAnswer4.setText(answer4right);
-                    ++i;
+                lablePicture.setIcon(new ImageIcon("pictures/pic2.jpg"));
+                lableQuestion.setText(id + ". " + question);
+                radioButtonAnswer1.setText(answer1);
+                radioButtonAnswer2.setText(answer2);
+                radioButtonAnswer3.setText(answer3);
+                radioButtonAnswer4.setText(answer4right);
+                ++i;
+                    id1++;
                 } else
                 {
                     JOptionPane.showMessageDialog(null,
