@@ -64,14 +64,22 @@ public class LoginForm extends JFrame
                 {
 
                     setVisible(false);
-                    SwitchForm switchForm = new SwitchForm();
-                    switchForm.setVisible(true);
+                    SwitchForm switchForm = null;
+                    try
+                    {
+                        switchForm = new SwitchForm();
+                        switchForm.setVisible(true);
+                    } catch (SQLException e1)
+                    {
+                        e1.printStackTrace();
+                    }
+
 //дополнительная проверка на статус
                     if (Objects.equals("user", statusequals))
                     {
                         switchForm.setVisibleElements(statusequals);
                     }
-
+                  //  dispose();
                 } else
                 {
                     JOptionPane.showMessageDialog(null,
@@ -88,23 +96,23 @@ public class LoginForm extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-//                setVisible(false);
-//                RegistForm registForm = null;
-//                try
-//                {
-//                    registForm = new RegistForm();
-//                    registForm.setVisible(true);
-//                } catch (SQLException e1)
-//                {
-//                    e1.printStackTrace();
-//                }
+                setVisible(false);
+                RegistForm registForm = null;
+                try
+                {
+                    registForm = new RegistForm();
+                    registForm.setVisible(true);
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
 
 
 //                    SELECT t.ID, t.Year, a.Userlogin
 //                    FROM baseusers t
 //                    LEFT JOIN baselogin a ON t.Userlogin = a.ID;
 
-
+                dispose();
 
 
             }
