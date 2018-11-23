@@ -43,7 +43,7 @@ public class TestForm extends JFrame
 
         this.setSize(700, 700);
         this.setContentPane(panelTest);
-        setDefaultCloseOperation();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         lablePicture.setIcon(new ImageIcon("pictures/pic1.jpg"));
 //группа взаимосвязанных обьектов
@@ -70,18 +70,22 @@ public class TestForm extends JFrame
             ++rowCount;
         }
 
-
-//вывод конкретной строки
-
         buttonNext.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-               getSomeQuestion(statement);
+                try
+                {
+                    getSomeQuestion(statement);
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
                 group.clearSelection();
             }
         });
+
         buttonBegin.addActionListener(new ActionListener()
         {
             @Override
@@ -98,21 +102,20 @@ public class TestForm extends JFrame
                 separator2.setVisible(true);
                 separator3.setVisible(true);
 
-                getSomeQuestion(statement);
+                try
+                {
+                    getSomeQuestion(statement);
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
             }
         });
     }
 
-    private void setDefaultCloseOperation() throws SQLException
+    private void getSomeQuestion(Statement statement) throws SQLException
     {
-        this.setVisible(false);
-        LoginForm loginForm = new LoginForm();
-        loginForm.setVisible(true);
-
-    }
-
-    private void getSomeQuestion(Statement statement)
-    {
+        //вывод конкретной строки
         if (i < rowCount)
         {
             try
@@ -130,7 +133,7 @@ public class TestForm extends JFrame
             {
                 e1.printStackTrace();
             }
-            ArrayList<String> list1=new ArrayList<>();
+            ArrayList<String> list1 = new ArrayList<>();
             list1.add(answer1);
             list1.add(answer2);
             list1.add(answer3);
@@ -140,8 +143,9 @@ public class TestForm extends JFrame
             lableQuestion.setText(id + ". " + question);
 
             Random rand = new Random();
-            ArrayList<String> list2=new ArrayList<>();
-            while(list1.size() > 0) {
+            ArrayList<String> list2 = new ArrayList<>();
+            while (list1.size() > 0)
+            {
                 int index = rand.nextInt(list1.size());
                 list2.add(list1.remove(index));
             }
@@ -151,13 +155,12 @@ public class TestForm extends JFrame
             radioButtonAnswer3.setText(list2.get(2));
             radioButtonAnswer4.setText(list2.get(3));
 
-            ++i;
+            i++;
             id1++;
 
             if (radioButtonAnswer1.isSelected())
             {
                 sel = sel + 1;
-                radioButtonAnswer1.setSelected(false);
             } else if (radioButtonAnswer2.isSelected())
             {
                 sel = sel + 2;
@@ -188,12 +191,11 @@ public class TestForm extends JFrame
             message += "Гребаные вопросы закончились. Конец теста.\n";
             message += "Даны ответы: " + sel;
 
-            JOptionPane.showMessageDialog(null,
-                    message,
-                    "Зэ энд",
-                    JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, message, "Зэ энд", JOptionPane.PLAIN_MESSAGE);
 
-
+            this.setVisible(false);
+            LoginForm loginForm = new LoginForm();
+            loginForm.setVisible(true);
         }
     }
 

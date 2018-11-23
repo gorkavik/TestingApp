@@ -1,7 +1,6 @@
 import org.sqlite.JDBC;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,6 +22,7 @@ public class RegistForm extends JFrame
     private String addLog;
     private String addPass;
     private String confirmPass;
+    private String status = "";
 
     public RegistForm() throws SQLException
     {
@@ -65,6 +65,16 @@ public class RegistForm extends JFrame
                 addPass = new String(passwordFieldAddPass.getPassword());
                 confirmPass = new String(passwordFieldConfirmPass.getPassword());
 
+                if (radioButtonAdmin.isSelected())
+                {
+                    status = "admin";
+                } else if (radioButtonUser.isSelected())
+                {
+                    status = "user";
+                } else if (radioButtonTeacher.isSelected())
+                {
+                    status = "teacher";
+                }
 
 
 
