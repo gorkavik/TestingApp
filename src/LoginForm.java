@@ -50,9 +50,9 @@ public class LoginForm extends JFrame
 
                 try
                 {
-                    resultSet = statement.executeQuery("SELECT * FROM baselogin WHERE Userlogin LIKE '" + login + "'");
+                    resultSet = statement.executeQuery("SELECT * FROM Users WHERE Login LIKE '" + login + "'");
                     passequals = resultSet.getString("Password");
-                    loginequals = resultSet.getString("Userlogin");
+                    loginequals = resultSet.getString("Login");
                     statusequals = resultSet.getString("Status");
 
                 } catch (SQLException e1)

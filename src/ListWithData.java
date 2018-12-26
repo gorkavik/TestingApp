@@ -26,20 +26,20 @@ public class ListWithData extends JFrame
         {
             case "questions":
             {
-                resultSet = statement.executeQuery("SELECT * FROM basequestion");
+                resultSet = statement.executeQuery("SELECT * FROM Questions");
 
                 int count = 0;
-                data1 = new String[5][6];
+                data1 = new String[47][3];
                 int i = 0;
                 while (resultSet.next())
                 {
                     //Массив содержащий информацию для таблицы
                     data1[i][0] = resultSet.getString("ID");
                     data1[i][1] = resultSet.getString("Question");
-                    data1[i][2] = resultSet.getString("Answer1");
-                    data1[i][3] = resultSet.getString("Answer2");
-                    data1[i][4] = resultSet.getString("Answer3");
-                    data1[i][5] = resultSet.getString("Answer4right");
+                    data1[i][2] = resultSet.getString("Answer");
+//                    data1[i][3] = resultSet.getString("Answer2");
+//                    data1[i][4] = resultSet.getString("Answer3");
+//                    data1[i][5] = resultSet.getString("Answer4right");
 
                     i++;
                     count++;
@@ -47,15 +47,15 @@ public class ListWithData extends JFrame
 
                 System.out.println("Количество вопросов в базе: " + count);
                 //Массив содержащий заголоки таблицы
-                headers = new String[]{"Номер", "Вопрос", "Ответ 1", "Ответ 2", "Ответ 3", "Ответ 4 (правильный)"};
+                headers = new String[]{"Номер", "Вопрос", "Ответ"};
                 break;
             }
 
             case "users":
             {
                 resultSet = statement.executeQuery("SELECT u.ID, u.Firstname, u.Lastname, u.Year, "
-                        +"u.Kurs, u.Spec, u.Grup, l.Userlogin FROM baseusers u LEFT JOIN baselogin l ON "
-                +"u.Userlogin=l.ID");
+                        +"u.Kurs, u.Spec, u.Grup, l.Login FROM Students u LEFT JOIN Users l ON "
+                +"u.loginId=l.ID");
 
                 int count = 0;
                 data1 = new String[5][8];
@@ -64,7 +64,7 @@ public class ListWithData extends JFrame
                 {
                     //Массив содержащий информацию для таблицы
                     data1[i][0] = resultSet.getString("ID");
-                    data1[i][1] = resultSet.getString("Userlogin");
+                    data1[i][1] = resultSet.getString("Login");
                     data1[i][2] = resultSet.getString("Firstname");
                     data1[i][3] = resultSet.getString("Lastname");
                     data1[i][4] = resultSet.getString("Year");

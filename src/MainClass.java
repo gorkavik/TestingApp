@@ -9,11 +9,11 @@ public class MainClass
     {
 
         //запуск формы с авторизацией
-//        LoginForm loginForm = new LoginForm();
-//        loginForm.setVisible(true);
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
 
-        TestForm testForm=new TestForm();
-        testForm.setVisible(true);
+//        TestForm testForm=new TestForm();
+//        testForm.setVisible(true);
 
 
 
