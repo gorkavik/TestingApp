@@ -7,8 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TestForm extends JFrame
-{
+public class TestForm extends JFrame {
     private JButton buttonNext;
     private JPanel panelTest;
     private JRadioButton radioButtonAnswer1;
@@ -24,20 +23,19 @@ public class TestForm extends JFrame
 
     private String id;
     private String question;
-    private String answer1;
-    private String answer2;
-    private String answer3;
-    private String answer4right;
+    private String answer;
     private int rowCount = 0;
 
     public ResultSet resultSet;
-    public int i = 0;
-    public int id1 = 3;
-    public String sel = "";
-    private ButtonGroup group = new ButtonGroup();
 
-    public TestForm() throws SQLException
-    {
+    public int i = 0;
+    public int sel = 0;
+    private ButtonGroup group = new ButtonGroup();
+    private ArrayList<String> answerList = new ArrayList<>();
+    private String answerText;
+    private boolean equalsValue;
+
+    public TestForm() throws SQLException {
 //инициализация формы
         super("Тестирование");
 
@@ -45,13 +43,17 @@ public class TestForm extends JFrame
         this.setContentPane(panelTest);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        lablePicture.setIcon(new ImageIcon("pictures/pic1.jpg"));
+
 //группа взаимосвязанных обьектов
 
         group.add(radioButtonAnswer1);
         group.add(radioButtonAnswer2);
         group.add(radioButtonAnswer3);
         group.add(radioButtonAnswer4);
+
+        // Random randtest = new Random();
+        int test = 1;// randtest.nextInt(2);
+        lablePicture.setIcon(new ImageIcon("pictures/pic" + test + "01.jpg"));
 
         String BASE_PATH = "jdbc:sqlite:assets/basequestion.db"; //путь к БД
         DriverManager.registerDriver(new JDBC()); //регистрация и подключение к БД
@@ -60,37 +62,33 @@ public class TestForm extends JFrame
         Statement statement = connection.createStatement();
 
 //получение выборки
-        resultSet = statement.executeQuery("SELECT Question, Answer1, Answer2, Answer3, Answer4right " +
-                "FROM basequestion WHERE Test=2");
+        resultSet = statement.executeQuery("SELECT ID, Question, Answer " +
+                "FROM Questions WHERE TestId=" + test);
 
-//получение количества строк
-
-        while (resultSet.next())
-        {
+////получение количества строк
+//
+        while (resultSet.next()) {
             ++rowCount;
+            answerList.add(resultSet.getString("Answer"));
         }
+        resultSet = statement.executeQuery("SELECT ID, Question, Answer " +
+                "FROM Questions WHERE TestId=" + test);
 
-        buttonNext.addActionListener(new ActionListener()
-        {
+        buttonNext.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    getSomeQuestion(statement);
-                } catch (SQLException e1)
-                {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getSomeQuestion(statement, test);
+                } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
                 group.clearSelection();
             }
         });
 
-        buttonBegin.addActionListener(new ActionListener()
-        {
+        buttonBegin.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 buttonBegin.setVisible(false);
                 buttonNext.setVisible(true);
                 radioButtonAnswer1.setVisible(true);
@@ -102,50 +100,41 @@ public class TestForm extends JFrame
                 separator2.setVisible(true);
                 separator3.setVisible(true);
 
-                try
-                {
-                    getSomeQuestion(statement);
-                } catch (SQLException e1)
-                {
+                try {
+                    getSomeQuestion(statement, test);
+                } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
         });
     }
 
-    private void getSomeQuestion(Statement statement) throws SQLException
-    {
+    private void getSomeQuestion(Statement statement, int test) throws SQLException {
         //вывод конкретной строки
-        if (i < rowCount)
-        {
-            try
-            {
-                resultSet = statement.executeQuery("SELECT ID, Question, Answer1, Answer2, Answer3, Answer4right " +
-                        "FROM basequestion WHERE (Test=2 AND ID=" + id1 + ")");
+        if (i < 10) {
+            try {
+                resultSet.next();
+
                 id = resultSet.getString("ID");
                 question = resultSet.getString("Question");
-                answer1 = resultSet.getString("Answer1");
-                answer2 = resultSet.getString("Answer2");
-                answer3 = resultSet.getString("Answer3");
-                answer4right = resultSet.getString("Answer4right");
+                answer = resultSet.getString("Answer");
 
-            } catch (SQLException e1)
-            {
+
+            } catch (SQLException e1) {
                 e1.printStackTrace();
             }
             ArrayList<String> list1 = new ArrayList<>();
-            list1.add(answer1);
-            list1.add(answer2);
-            list1.add(answer3);
-            list1.add(answer4right);
+            list1.add(answer);
+            list1.add(answerList.get(11));
+            list1.add(answerList.get(13));
+            list1.add(answerList.get(15));
 
-            lablePicture.setIcon(new ImageIcon("pictures/pic2.jpg"));
+            lablePicture.setIcon(new ImageIcon("pictures/pic" + test + id + ".jpg"));
             lableQuestion.setText(id + ". " + question);
 
             Random rand = new Random();
             ArrayList<String> list2 = new ArrayList<>();
-            while (list1.size() > 0)
-            {
+            while (list1.size() > 0) {
                 int index = rand.nextInt(list1.size());
                 list2.add(list1.remove(index));
             }
@@ -156,40 +145,37 @@ public class TestForm extends JFrame
             radioButtonAnswer4.setText(list2.get(3));
 
             i++;
-            id1++;
-
-            if (radioButtonAnswer1.isSelected())
-            {
-                sel = sel + 1;
-            } else if (radioButtonAnswer2.isSelected())
-            {
-                sel = sel + 2;
-            } else if (radioButtonAnswer3.isSelected())
-            {
-                sel = sel + 3;
-            } else if (radioButtonAnswer4.isSelected())
-            {
-                sel = sel + 4;
+//какая кнопка нажата
+            if (radioButtonAnswer1.isSelected()) {
+                answerText = radioButtonAnswer1.getText();
+            } else if (radioButtonAnswer2.isSelected()) {
+                answerText = radioButtonAnswer2.getText();
+            } else if (radioButtonAnswer3.isSelected()) {
+                answerText = radioButtonAnswer3.getText();
+            } else if (radioButtonAnswer4.isSelected()) {
+                answerText = radioButtonAnswer4.getText();
             }
-
-        } else
-        {
-            if (radioButtonAnswer1.isSelected())
-            {
-                sel = sel + 1;
-            } else if (radioButtonAnswer2.isSelected())
-            {
-                sel = sel + 2;
-            } else if (radioButtonAnswer3.isSelected())
-            {
-                sel = sel + 3;
-            } else if (radioButtonAnswer4.isSelected())
-            {
-                sel = sel + 4;
+            if (answer.equals(answerText)) {
+                sel++;
+//                System.out.println(sel);
+            }
+        } else {
+            if (radioButtonAnswer1.isSelected()) {
+                answerText = radioButtonAnswer1.getText();
+            } else if (radioButtonAnswer2.isSelected()) {
+                answerText = radioButtonAnswer2.getText();
+            } else if (radioButtonAnswer3.isSelected()) {
+                answerText = radioButtonAnswer3.getText();
+            } else if (radioButtonAnswer4.isSelected()) {
+                answerText = radioButtonAnswer4.getText();
+            }
+            if (answer.equals(answerText)) {
+                sel++;
+//                System.out.println(sel);
             }
             String message = "";
-            message += "Гребаные вопросы закончились. Конец теста.\n";
-            message += "Даны ответы: " + sel;
+            message += "Конец теста.\n";
+            message += "Правильных ответов: " + sel;
 
             JOptionPane.showMessageDialog(null, message, "Зэ энд", JOptionPane.PLAIN_MESSAGE);
 
