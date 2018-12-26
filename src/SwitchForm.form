@@ -26,6 +26,7 @@
         <properties>
           <font name="Arial" size="14"/>
           <text value="Показать результаты"/>
+          <visible value="false"/>
         </properties>
       </component>
       <component id="abc83" class="javax.swing.JButton" binding="buttonListQuestions">
