@@ -65,7 +65,7 @@ public class TestForm extends JFrame
 
 //получение выборки
         resultSet = statement.executeQuery("SELECT ID, Question, Answer " +
-                                                   "FROM Questions WHERE TestId=" + test);
+                "FROM Questions WHERE TestId=" + test);
 
 ////получение количества строк
 //
@@ -87,7 +87,7 @@ public class TestForm extends JFrame
                 {
                     e1.printStackTrace();
                 }
-//                group.clearSelection();
+
             }
         });
 
@@ -124,7 +124,6 @@ public class TestForm extends JFrame
         //вывод конкретной строки
         if (i < 10)
         {
-
             //какая кнопка нажата
             if (radioButtonAnswer1.isSelected())
             {
@@ -151,13 +150,12 @@ public class TestForm extends JFrame
 // вывод вопроса
             try
             {
-//                resultSet.next();
                 int q = 1 + rand.nextInt(21 - 1);
                 numbOfQuestionsList.add(q);
                 System.out.println("массив номеров вопросов = " + Arrays.toString(numbOfQuestionsList.toArray()));
 
                 resultSet = statement.executeQuery("SELECT ID, Question, Answer " +
-                                                           "FROM Questions WHERE TestId=" + test + " AND ID=" + q);
+                        "FROM Questions WHERE TestId=" + test + " AND ID=" + q);
                 id = resultSet.getString("ID");
                 question = resultSet.getString("Question");
                 answer = resultSet.getString("Answer");
@@ -191,6 +189,7 @@ public class TestForm extends JFrame
 
         } else
         {
+            //какая кнопка нажата
             if (radioButtonAnswer1.isSelected())
             {
                 answerText = radioButtonAnswer1.getText();
@@ -203,16 +202,19 @@ public class TestForm extends JFrame
             } else if (radioButtonAnswer4.isSelected())
             {
                 answerText = radioButtonAnswer4.getText();
-            }
+            } else answerText = "3";
+
+            System.out.println("answer = " + answer);
+            System.out.println("answerText = " + answerText);
             if (answer.equals(answerText))
             {
                 sel++;
-//                System.out.println(sel);
             }
+            System.out.println("количество правильных = " + sel);
+
             String message = "";
             message += "Конец теста.\n";
             message += "Правильных ответов: " + sel;
-
             JOptionPane.showMessageDialog(null, message, "Конец", JOptionPane.PLAIN_MESSAGE);
 
             this.setVisible(false);

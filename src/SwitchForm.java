@@ -88,14 +88,6 @@ public class SwitchForm extends JFrame
         });
     }
 
-//    private void setDefaultCloseOperation() throws SQLException
-//    {
-//        this.setVisible(false);
-//        LoginForm loginForm = new LoginForm();
-//        loginForm.setVisible(true);
-//
-//    }
-
     public void setVisibleElements(String status)
     {
         switch (status)

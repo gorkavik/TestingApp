@@ -53,7 +53,7 @@
         </constraints>
         <properties>
           <font name="Arial" size="14"/>
-          <text value="Показать список пользователей"/>
+          <text value="Показать список студентов"/>
         </properties>
       </component>
     </children>

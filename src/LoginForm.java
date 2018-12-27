@@ -79,12 +79,12 @@ public class LoginForm extends JFrame
                     {
                         switchForm.setVisibleElements(statusequals);
                     }
-                  //  dispose();
+                    //  dispose();
                 } else
                 {
                     JOptionPane.showMessageDialog(null,
-                            "непральна епт",
-                            "заголовок",
+                            "Неверный логин или пароль",
+                            "Ошибка",
                             JOptionPane.PLAIN_MESSAGE);
                 }
             }

@@ -11,7 +11,6 @@ public class ListWithData extends JFrame
 
     public ListWithData(String data) throws SQLException
     {
-      //  setDefaultCloseOperation();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         String BASE_PATH = "jdbc:sqlite:assets/basequestion.db"; //путь к БД
@@ -37,16 +36,12 @@ public class ListWithData extends JFrame
                     data1[i][0] = resultSet.getString("ID");
                     data1[i][1] = resultSet.getString("Question");
                     data1[i][2] = resultSet.getString("Answer");
-//                    data1[i][3] = resultSet.getString("Answer2");
-//                    data1[i][4] = resultSet.getString("Answer3");
-//                    data1[i][5] = resultSet.getString("Answer4right");
-
                     i++;
                     count++;
                 }
 
                 System.out.println("Количество вопросов в базе: " + count);
-                //Массив содержащий заголоки таблицы
+                //Массив содержащий заголовки таблицы
                 headers = new String[]{"Номер", "Вопрос", "Ответ"};
                 break;
             }
@@ -75,7 +70,7 @@ public class ListWithData extends JFrame
                     count++;
                 }
 
-                System.out.println("Количество вопросов в базе: " + count);
+                System.out.println("Количество студентов в базе: " + count);
                 //Массив содержащий заголоки таблицы
                 headers = new String[]{"Номер", "Тип авторизации", "Имя", "Фамилия", "Год", "Курс",
                         "Специальность", "Группа"};
@@ -109,11 +104,4 @@ public class ListWithData extends JFrame
 
     }
 
-//    private void setDefaultCloseOperation() throws SQLException
-//    {
-//        this.setVisible(false);
-//        SwitchForm switchForm = new SwitchForm();
-//        switchForm.setVisible(true);
-//
-//    }
 }

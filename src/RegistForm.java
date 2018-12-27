@@ -19,9 +19,9 @@ public class RegistForm extends JFrame
     private JPasswordField passwordFieldAddPass;
     private JPasswordField passwordFieldConfirmPass;
 
-    private String addLog;
-    private String addPass;
-    private String confirmPass;
+    private String addLog = "";
+    private String addPass = "";
+    private String confirmPass = "";
     private String status = "";
 
     public RegistForm() throws SQLException
@@ -50,6 +50,47 @@ public class RegistForm extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+
+                addLog = textFieldAddLog.getText();
+                addPass = new String(passwordFieldAddPass.getPassword());
+                confirmPass = new String(passwordFieldConfirmPass.getPassword());
+                if (!addPass.equals(confirmPass))
+                {
+                    JOptionPane.showMessageDialog(null,
+                            "Пароль не совпадает",
+                            "Ошибка",
+                            JOptionPane.PLAIN_MESSAGE);
+                    passwordFieldAddPass.setText("");
+                    passwordFieldConfirmPass.setText("");
+                    return;
+                }
+                if (radioButtonAdmin.isSelected())
+                {
+                    status = "admin";
+                } else if (radioButtonUser.isSelected())
+                {
+                    status = "user";
+                } else if (radioButtonTeacher.isSelected())
+                {
+                    status = "teacher";
+                } else
+                {
+                    JOptionPane.showMessageDialog(null,
+                            "Не выбран статус",
+                            "Ошибка",
+                            JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+                try
+                {
+                    statement.execute("INSERT INTO Users ('Login','Password','Status') VALUES ('" + addLog + "','" + addPass + "','" + status + "')");
+                } catch (SQLException e1)
+                {
+                    e1.printStackTrace();
+                }
+
+
+// переключение формы
                 setVisible(false);
                 LoginForm loginForm = null;
                 try
@@ -60,26 +101,6 @@ public class RegistForm extends JFrame
                 {
                     e1.printStackTrace();
                 }
-
-                addLog = textFieldAddLog.getText();
-                addPass = new String(passwordFieldAddPass.getPassword());
-                confirmPass = new String(passwordFieldConfirmPass.getPassword());
-
-                if (radioButtonAdmin.isSelected())
-                {
-                    status = "admin";
-                } else if (radioButtonUser.isSelected())
-                {
-                    status = "user";
-                } else if (radioButtonTeacher.isSelected())
-                {
-                    status = "teacher";
-                }
-
-
-
-
-
 
             }
         });

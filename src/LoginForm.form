@@ -45,7 +45,7 @@
         <properties>
           <font name="Arial" size="18"/>
           <foreground color="-16711422"/>
-          <text value="Кто ты?"/>
+          <text value="Введите данные"/>
         </properties>
       </component>
       <component id="9a70f" class="javax.swing.JButton" binding="buttonEnter">
@@ -82,7 +82,7 @@
         </constraints>
         <properties>
           <text value="Регистрация"/>
-          <visible value="false"/>
+          <visible value="true"/>
         </properties>
       </component>
     </children>
